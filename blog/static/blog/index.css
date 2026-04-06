@@ -1,49 +1,165 @@
+#main-navigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 8%;
+  background: rgba(30, 27, 75, 0.95);
+  color: white;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+#main-navigation a {
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+#main-navigation h1 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+#main-navigation nav a {
+  margin-left: 1.5rem;
+}
+
+
+
 #welcome {
-  background: linear-gradient(to right top, #6305dd, #390281);
-  padding: 6rem 12%;
+  background:
+    radial-gradient(circle at top left, rgba(255, 255, 255, 0.18), transparent 30%),
+    radial-gradient(circle at bottom right, rgba(255, 255, 255, 0.08), transparent 25%),
+    linear-gradient(135deg, #4338ca, #6d28d9 50%, #1e1b4b);
+  padding: 7rem 10% 11rem;
+  position: relative;
+  overflow: hidden;
+}
+
+#welcome::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, transparent, rgba(15, 23, 42, 0.1));
+  pointer-events: none;
+}
+
+#welcome::after {
+  content: "";
+  position: absolute;
+  top: -6rem;
+  right: -6rem;
+  width: 18rem;
+  height: 18rem;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 50%;
+  filter: blur(16px);
+}
+
+.welcome-content {
+  max-width: 1100px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
 }
 
 #welcome header {
   display: flex;
-  align-items: flex-start;
-  margin: 3rem auto;
+  align-items: center;
+  gap: 2.5rem;
+}
+
+.profile-image-wrapper {
+  position: relative;
+  flex-shrink: 0;
+  padding: 0.7rem;
+  border-radius: 2rem;
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(10px);
+  box-shadow:
+    0 20px 50px rgba(0, 0, 0, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18);
+}
+
+.profile-image-wrapper::before {
+  content: "";
+  position: absolute;
+  inset: -10px;
+  border-radius: 2.3rem;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.35),
+    rgba(255, 255, 255, 0.05)
+  );
+  z-index: -1;
+  filter: blur(12px);
 }
 
 #welcome img {
-  width: 10rem;
-  height: 10rem;
+  display: block;
+  width: 11rem;
+  height: 11rem;
   object-fit: cover;
-  object-position: top;
-  border: 5px solid white;
-  border-radius: 12px;
-  background-color: #ffe1bf;
-  transform: rotateZ(-5deg);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  object-position: center top;
+  border-radius: 1.5rem;
+  border: 3px solid rgba(255, 255, 255, 0.85);
+  background-color: #f8fafc;
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.2);
+}
+
+.welcome-text {
+  max-width: 38rem;
+}
+
+.eyebrow {
+  display: inline-block;
+  margin: 0 0 1rem;
+  padding: 0.35rem 0.8rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.14);
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
 #welcome h2 {
-  font-size: 3.5rem;
-  margin: 0 0 0 2rem;
-  color: #e4e4e4;
-  width: 10rem;
+  font-size: clamp(2.7rem, 6vw, 4.8rem);
+  margin: 0;
+  color: #ffffff;
+  line-height: 1;
+  letter-spacing: -0.04em;
 }
 
-#welcome p {
-  color: white;
-  font-size: 1.5rem;
+.intro {
+  margin: 1.25rem 0 0;
+  color: rgba(255, 255, 255, 0.86);
+  font-size: 1.15rem;
+  line-height: 1.85;
+  max-width: 34rem;
 }
 
 #latest-posts {
-  background-color: white;
-  padding: 2rem;
-  border-radius: 12px;
-  width: 60rem;
-  margin: -6rem auto 2rem auto;
-  box-shadow: 1px 1px 12px rgba(0, 0, 0, 0.4);
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(14px);
+  padding: 2.5rem;
+  border-radius: 1.75rem;
+  width: min(90%, 72rem);
+  margin: -5.5rem auto 3rem;
+  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.65);
+  position: relative;
+  z-index: 2;
 }
 
 #latest-posts h2 {
   text-align: center;
+  font-size: 2rem;
+  margin: 0 0 2rem;
+  color: #1e1b4b;
+  letter-spacing: -0.03em;
 }
 
 #latest-posts ul {
@@ -51,25 +167,63 @@
   margin: 0;
   padding: 0;
   display: flex;
-  gap: 1rem;
+  gap: 1.5rem;
+  flex-wrap: wrap;
 }
 
 #latest-posts li {
-  flex: 1;
+  flex: 1 1 16rem;
 }
 
 #about {
   text-align: center;
-  padding: 3rem;
-  background-color: #e48900;
-  margin-top: 5rem;
+  padding: 5rem 10%;
+  margin-top: 4rem;
+  background: linear-gradient(180deg, #fff7ed, #ffedd5);
+  border-top: 1px solid rgba(0, 0, 0, 0.04);
 }
 
 #about h2 {
-  font-size: 3rem;
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  margin-bottom: 1rem;
+  color: #7c2d12;
+  letter-spacing: -0.03em;
 }
 
 #about p {
-  font-size: 1.6rem;
-  color: #353535;
+  max-width: 760px;
+  margin: 0 auto;
+  font-size: 1.15rem;
+  line-height: 1.9;
+  color: #44403c;
+}
+
+@media (max-width: 768px) {
+  #welcome {
+    padding: 5rem 7% 9rem;
+  }
+
+  #welcome header {
+    flex-direction: column;
+    text-align: center;
+    gap: 1.5rem;
+  }
+
+  .welcome-text {
+    max-width: 100%;
+  }
+
+  .intro {
+    max-width: 100%;
+  }
+
+  #welcome img {
+    width: 9rem;
+    height: 9rem;
+  }
+
+  #latest-posts {
+    padding: 1.75rem;
+    margin-top: -4rem;
+  }
 }

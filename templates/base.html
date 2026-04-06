@@ -6,15 +6,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}My Site{% endblock %}</title>
+
     <link rel="stylesheet" href="{% static 'app.css' %}">
     {% block css_files %}{% endblock %}
 </head>
 <body>
-    <header>
-        <h1>Welcome</h1>
+    <header id="main-navigation">
+        <h1><a href="/">Max's Blog</a></h1>
+        <nav>
+            <a href="">All Posts</a>
+        </nav> 
     </header>
     <main>
-        {% block content %}{% endblock %}
+        {% block content %}
+        
+        {% endblock %}
     </main>
     <footer>
         <p>&copy; 2024 My Site. All rights reserved.</p>

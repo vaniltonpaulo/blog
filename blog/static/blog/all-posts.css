@@ -1,0 +1,69 @@
+body {
+  margin: 0;
+  font-family: "Inter", "Segoe UI", Arial, sans-serif;
+  background: linear-gradient(180deg, #f8fafc, #eef2ff 45%, #f8fafc);
+  color: #1f2937;
+}
+
+#main-navigation {
+  background: rgba(30, 27, 75, 0.88);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.16);
+}
+
+#all-posts {
+  margin: 6rem auto;
+  width: min(92%, 72rem);
+}
+
+#all-posts h2 {
+  text-align: center;
+  font-size: clamp(2rem, 4vw, 3rem);
+  color: #111827;
+  margin: 0 0 3rem;
+  letter-spacing: -0.03em;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
+  gap: 1.75rem;
+}
+
+.post a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  min-height: 22rem;
+  padding: 1.5rem;
+  text-decoration: none;
+  color: inherit;
+  background: rgba(255, 255, 255, 0.78);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  border-radius: 24px;
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.1);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  transform-origin: center;
+}
+
+.post a:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 24px 50px rgba(79, 70, 229, 0.18);
+  border-color: rgba(99, 102, 241, 0.35);
+}
+
+.post img {
+  width: 7.5rem;
+  height: 7.5rem;
+  object-fit: cover;
+  border-radius: 18px;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.14);
+}
