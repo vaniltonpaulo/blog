@@ -1,28 +1,50 @@
 {% load static %}
+<!-- Enables the use of Django's static template tag (for CSS, JS, images) -->
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}My Site{% endblock %}</title>
+    <!-- Ensures proper text encoding (supports special characters) -->
 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Makes the site responsive on mobile devices -->
+
+    <title>{% block title %}My Site{% endblock %}</title>
+    <!-- Child templates can override the page title -->
+
+    <!-- Main global stylesheet -->
     <link rel="stylesheet" href="{% static 'app.css' %}">
+    <!-- Django converts this to /static/app.css -->
+
     {% block css_files %}{% endblock %}
+    <!-- Optional block for page-specific CSS -->
 </head>
+
 <body>
     <header id="main-navigation">
-        <h1><a href="{% url 'starting-page' %}">Max's Blog</a></h1>
+        <!-- Main navigation bar (shared across all pages) -->
+
+        <h1>
+            <!-- Link to homepage using named URL -->
+            <a href="{% url 'starting-page' %}">Max's Blog</a>
+        </h1>
+
         <nav>
+            <!-- Link to posts page using Django URL routing -->
             <a href="{% url 'posts-page' %}">All Posts</a>
         </nav> 
     </header>
+
     <main>
+        <!-- Main content area that child templates will fill -->
         {% block content %}
         
         {% endblock %}
     </main>
+
     <footer>
+        <!-- Footer shown on all pages -->
         <p>&copy; 2024 My Site. All rights reserved.</p>
     </footer>
 </body>

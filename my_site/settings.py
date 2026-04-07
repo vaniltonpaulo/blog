@@ -31,7 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'blog',
+    'blog', # Our custom app for the blog
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -56,7 +56,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-                BASE_DIR / 'templates'
+                BASE_DIR / 'templates' # Global templates directory for the entire project
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -117,8 +117,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = 'static/' #
 
+# Additional directories where Django will look for static files (during development)
+# BASE_DIR / "static" points to a folder named "static" in your project root
 STATICFILES_DIRS = [
     BASE_DIR / "static"
 ]

@@ -1,17 +1,27 @@
 {% extends "base.html" %}
+<!-- Inherit layout from base.html (header, footer, etc.) -->
+
 {% load static %}
+<!-- Enables use of {% static %} for images, CSS, etc. -->
 
 {% block page_title %}Blog{% endblock %}
+<!-- ⚠️ Only works if base.html defines "page_title"
+     (your base.html uses "title", so this might NOT show) -->
 
 {% block css_files %}
+<!-- Adds page-specific CSS (injected into base.html head) -->
 <link rel="stylesheet" href="{% static 'blog/index.css' %}">
 {% endblock %}
 
 {% block content %}
+<!-- Main content replaces base.html's content block -->
+
 <section id="welcome">
   <div class="welcome-content">
     <header>
+
       <div class="profile-image-wrapper">
+        <!-- Static image served via Django static files system -->
         <img
           src="{% static 'blog/images/max.png' %}"
           alt="Max - The author of this blog"
@@ -20,30 +30,42 @@
 
       <div class="welcome-text">
         <p class="eyebrow">Personal Blog</p>
+
         <h2>Maximilian Boss</h2>
+
         <p class="intro">
           I write about Python, Django, and building clean, practical web
           applications with thoughtful design.
         </p>
       </div>
+
     </header>
   </div>
 </section>
 
+
 <section id="latest-posts">
   <h2>Latest Posts</h2>
+
   <ul>
+    <!-- Loop through posts passed from view -->
     {% for post in posts %}
+
+      <!-- Include reusable template for a single post -->
       {% include "blog/includes/post.html" %}
+
     {% endfor %}
   </ul>
 </section>
 
+
 <section id="about">
   <h2>What I do</h2>
+
   <p>
     I am a software developer and blogger who loves to write about Python,
     Django, and web development.
   </p>
 </section>
+
 {% endblock %}

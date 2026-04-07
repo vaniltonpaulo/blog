@@ -68,25 +68,44 @@ all_posts = [
     }
 ]
 
-# Create your views here.
 
+
+# Helper function used for sorting posts by date
 def get_date(post):
+    # Returns the 'date' field from a post dictionary
     return post['date']
 
+
+# View for the homepage ("/")
 def starting_page(request):
+    # Sort all posts by date (oldest → newest)
     sorted_posts = sorted(all_posts, key=get_date)
+
+    # Get the latest 3 posts (from the end of the sorted list)
     lastest_posts = sorted_posts[-3:]  
+
+    # Render homepage template and pass latest posts as context
     return render(request, 'blog/index.html', {
         'posts': lastest_posts
     })
 
+
+# View for "/posts/"
 def posts(request):
+    # Render template with all posts
     return render(request, 'blog/all-posts.html', {
         'all_posts': all_posts
     })
 
+
+# View for a single post ("/posts/<slug>/")
 def post_detail(request, slug):
-    indentified_post = next(post for post in all_posts if post['slug'] == slug)
-    return render(request, 'blog/post-detail.html',{
+    # Find the post where slug matches the URL parameter
+    indentified_post = next(
+        post for post in all_posts if post['slug'] == slug
+    )
+
+    # Render detail template with the selected post
+    return render(request, 'blog/post-detail.html', {
         'post': indentified_post
-    })    
+    })
