@@ -86,4 +86,7 @@ def posts(request):
     })
 
 def post_detail(request, slug):
-    return render(request, 'blog/post-detail.html')    
+    indentified_post = next(post for post in all_posts if post['slug'] == slug)
+    return render(request, 'blog/post-detail.html',{
+        'post': indentified_post
+    })    
