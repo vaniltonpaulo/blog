@@ -15,8 +15,13 @@
         <div class="summary-text">
             <p class="tag">Web Development</p>
             <h2>{{ post.title }}</h2>
+            <div>
+                {% for tag in post_tags %}
+                    <span>{{ tag.caption }}</span>
+                {% endfor %}
+            </div>
             <div class="meta">
-                <address>By {{ post.author }}</address>
+                <address>By <a href="mailto:{{ post.author.email }}">{{ post.author }}</a></address>
                 <span>•</span>
                 <div>Last updated <time>{{ post.date|date:"M d, Y" }}</time></div>
             </div>
