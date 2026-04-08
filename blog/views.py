@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from datetime import date
+from .models import Post
 
 
 all_posts = [
@@ -78,11 +79,8 @@ def get_date(post):
 
 # View for the homepage ("/")
 def starting_page(request):
-    # Sort all posts by date (oldest → newest)
-    sorted_posts = sorted(all_posts, key=get_date)
-
-    # Get the latest 3 posts (from the end of the sorted list)
-    lastest_posts = sorted_posts[-3:]  
+    # Query the database for all Post objects, ordered by date (newest first)
+    lastest_posts = Post.objects.all().order_by('-date') 
 
     # Render homepage template and pass latest posts as context
     return render(request, 'blog/index.html', {
