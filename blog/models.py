@@ -3,6 +3,8 @@ from django.core.validators import MinLengthValidator
 
 # Create your models here.
 
+class Tag(models.Model):
+    caption = models.CharField(max_length=20)
 
 class Author(models.Model):
     first_name = models.CharField(max_length=100)
@@ -17,5 +19,6 @@ class Post(models.Model):
     slug = models.SlugField(unique=True, validators=[MinLengthValidator(10)])
     content = models.TextField()
     author = models.ForeignKey(Author, on_delete=models.SET_NULL, related_name='posts')
+    tags = models.ManyToManyField(Tag)
 
 
