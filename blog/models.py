@@ -3,6 +3,12 @@ from django.core.validators import MinLengthValidator
 
 # Create your models here.
 
+
+class Author(models.Model):
+    first_name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100) 
+    email_address = models.EmailField(unique=True)
+
 class Post(models.Model):
     title = models.CharField(max_length=150)
     excerpt = models.CharField(max_length=300)
@@ -10,7 +16,6 @@ class Post(models.Model):
     date = models.DateField(auto_now=True)
     slug = models.SlugField(unique=True, validators=[MinLengthValidator(10)])
     content = models.TextField()
-    # image = models.CharField(max_length=100)
-    # author = models.CharField(max_length=50)
+    author = models.ForeignKey(Author, on_delete=models.SET_NULL, related_name='posts')
 
 
