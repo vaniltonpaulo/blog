@@ -1,74 +1,18 @@
 from django.shortcuts import render, get_object_or_404
-#from datetime import date
+from django.views.generic import ListView, DetailView
+
 from .models import Post
 
+class StartingPageView(ListView):
+    template_name = 'blog/index.html'
+    model = Post
+    ordering = ['-date'] 
+    context_object_name = 'posts' 
 
-# all_posts = [
-#     {
-#         "slug": "hike-in-the-mountains",
-#         "image": "mountains.jpg",
-#         "author": "Maximilian",
-#         "date": date(2021, 7, 21),
-#         "title": "Mountain Hiking",
-#         "excerpt": "There's nothing like the views you get when hiking in the mountains! And I wasn't even prepared for what happened whilst I was enjoying the view!",
-#         "content": """
-#           Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis nobis
-#           aperiam est praesentium, quos iste consequuntur omnis exercitationem quam
-#           velit labore vero culpa ad mollitia? Quis architecto ipsam nemo. Odio.
-
-#           Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis nobis
-#           aperiam est praesentium, quos iste consequuntur omnis exercitationem quam
-#           velit labore vero culpa ad mollitia? Quis architecto ipsam nemo. Odio.
-
-#           Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis nobis
-#           aperiam est praesentium, quos iste consequuntur omnis exercitationem quam
-#           velit labore vero culpa ad mollitia? Quis architecto ipsam nemo. Odio.
-#         """
-#     },
-#     {
-#         "slug": "programming-is-fun",
-#         "image": "coding.jpg",
-#         "author": "Maximilian",
-#         "date": date(2022, 3, 10),
-#         "title": "Programming Is Great!",
-#         "excerpt": "Did you ever spend hours searching that one error in your code? Yep - that's what happened to me yesterday...",
-#         "content": """
-#           Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis nobis
-#           aperiam est praesentium, quos iste consequuntur omnis exercitationem quam
-#           velit labore vero culpa ad mollitia? Quis architecto ipsam nemo. Odio.
-
-#           Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis nobis
-#           aperiam est praesentium, quos iste consequuntur omnis exercitationem quam
-#           velit labore vero culpa ad mollitia? Quis architecto ipsam nemo. Odio.
-
-#           Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis nobis
-#           aperiam est praesentium, quos iste consequuntur omnis exercitationem quam
-#           velit labore vero culpa ad mollitia? Quis architecto ipsam nemo. Odio.
-#         """
-#     },
-#     {
-#         "slug": "into-the-woods",
-#         "image": "woods.jpg",
-#         "author": "Maximilian",
-#         "date": date(2020, 8, 5),
-#         "title": "Nature At Its Best",
-#         "excerpt": "Nature is amazing! The amount of inspiration I get when walking in nature is incredible!",
-#         "content": """
-#           Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis nobis
-#           aperiam est praesentium, quos iste consequuntur omnis exercitationem quam
-#           velit labore vero culpa ad mollitia? Quis architecto ipsam nemo. Odio.
-
-#           Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis nobis
-#           aperiam est praesentium, quos iste consequuntur omnis exercitationem quam
-#           velit labore vero culpa ad mollitia? Quis architecto ipsam nemo. Odio.
-
-#           Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis nobis
-#           aperiam est praesentium, quos iste consequuntur omnis exercitationem quam
-#           velit labore vero culpa ad mollitia? Quis architecto ipsam nemo. Odio.
-#         """
-#     }
-# ]
-
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        data = queryset[:3] 
+        return data
 
 
 # Helper function used for sorting posts by date
@@ -77,31 +21,28 @@ def get_date(post):
     return post['date']
 
 
-# View for the homepage ("/")
-def starting_page(request):
-    # Query the database for all Post objects, ordered by date (newest first)
-    lastest_posts = Post.objects.all().order_by('-date')[:3]
-
-    # Render homepage template and pass latest posts as context
-    return render(request, 'blog/index.html', {
-        'posts': lastest_posts
-    })
+class AllPostsView(ListView):
+    template_name = 'blog/all-posts.html'
+    model = Post
+    ordering = ['-date'] 
+    context_object_name = 'all_posts'
 
 
-# View for "/posts/"
-def posts(request):
-    all_posts = Post.objects.all().order_by('-date') # Get all posts from the database, ordered by date (newest first)
-    # Render template with all posts
-    return render(request, 'blog/all-posts.html', {
-        'all_posts': all_posts
-    })
+class SinglePostView(DetailView):
+    template_name = 'blog/post-detail.html'
+    model = Post
+    context_object_name = 'post'
 
+    def get_context_data(self, **kwargs):
+        # Get the default context data from the parent class
+        context = super().get_context_data(**kwargs)
 
-# View for a single post ("/posts/<slug>/")
-def post_detail(request, slug):
-    indentified_post = Post.objects.get(slug=slug) 
-    # Render detail template with the selected post
-    return render(request, 'blog/post-detail.html', {
-        'post': indentified_post,
-        "post_tags": indentified_post.tags.all() # Get all tags related to the post
-    })
+        # Get the current post object (the one being viewed)
+        current_post = self.get_object()
+
+        # Get all tags associated with this post
+        post_tags = current_post.tags.all()
+        context['post_tags'] = post_tags
+
+        return context
+
