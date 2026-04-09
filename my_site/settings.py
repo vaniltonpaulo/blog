@@ -124,3 +124,9 @@ STATIC_URL = 'static/' #
 STATICFILES_DIRS = [
     BASE_DIR / "static"
 ]
+
+MEDIA_ROOT = BASE_DIR / 'uploads' # Directory where uploaded media files will be stored
+MEDIA_URL = '/files/'
+
+# Run the following command to install the Pillow library for image handling
+# python3 -m pip install Pillow

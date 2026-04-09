@@ -29,7 +29,7 @@
 
         <div class="summary-image">
             <img
-                src="{% static 'blog/images/'|add:post.image_name %}"
+                src="{{ post.image.url }}"
                 alt="{{ post.title }}"
             >
         </div>

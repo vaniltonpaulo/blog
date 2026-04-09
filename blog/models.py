@@ -46,9 +46,8 @@ class Post(models.Model):
     # Short summary shown in previews
     excerpt = models.CharField(max_length=300)
 
-    # Stores image filename (not the actual file)
-    # Example: "post1.jpg"
-    image_name = models.CharField(max_length=100)
+
+    image_name = models.ImageField(upload_to='posts', null=True) # Optional image field; uploaded files go to MEDIA_ROOT/posts/
 
     # Automatically updates to current date every time the post is saved
     date = models.DateField(auto_now=True)
@@ -76,3 +75,6 @@ class Post(models.Model):
     # Relationship: many posts ↔ many tags
     # A post can have multiple tags, and a tag can belong to multiple posts
     tags = models.ManyToManyField(Tag)
+
+    def __str__(self):
+        return self.title

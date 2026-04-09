@@ -16,7 +16,8 @@ Including another URLconf
 """
 from django.contrib import admin  # Django's built-in admin site
 from django.urls import include, path  # Functions to define URL routes
-
+from django.conf.urls.static import static  # Helper function to serve media files during development
+from django.conf import settings  # Access project settings
 # This list defines all URL routes for the entire project
 urlpatterns = [
     # Route for Django admin panel
@@ -27,4 +28,4 @@ urlpatterns = [
     # '' means this is the root URL (e.g. http://127.0.0.1:8000/)
     # Django will now look inside blog/urls.py for further routing
     path('', include('blog.urls'))
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) # Serve media files from the "uploads" directory when URL starts with /files/
