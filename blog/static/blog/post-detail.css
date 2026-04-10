@@ -135,3 +135,80 @@ body {
     padding: 1.5rem;
   }
 }
+
+
+/* Form container */
+#comment-form {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  font-family: Arial, sans-serif;
+}
+
+/* Each field wrapper */
+.form-control {
+  margin-bottom: 1.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Labels */
+.form-control label {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+/* Inputs, textarea */
+.form-control input,
+.form-control textarea {
+  padding: 0.7rem 0.9rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  transition: border 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Focus effect */
+.form-control input:focus,
+.form-control textarea:focus {
+  border-color: #4f46e5;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.15);
+}
+
+/* Error messages */
+.form-control .errorlist {
+  margin-top: 0.4rem;
+  color: #e11d48;
+  font-size: 0.85rem;
+  list-style: none;
+  padding: 0;
+}
+
+/* Submit button */
+#comment-form button {
+  background: #4f46e5;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.1s ease, box-shadow 0.1s ease;
+}
+
+/* Hover effect */
+#comment-form button:hover {
+  background: #4338ca;
+}
+
+/* Click effect */
+#comment-form button:active {
+  transform: translateY(1px);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+}
