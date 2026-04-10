@@ -78,3 +78,23 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class Comment(models.Model):
+
+    # Name of the person who wrote the comment
+    user_name = models.CharField(max_length=100)
+
+    user_email = models.EmailField() # Email of the commenter
+    # The comment text
+    text = models.TextField(max_length=500)
+
+    # Date when the comment was created; set automatically on creation
+    date = models.DateTimeField(auto_now_add=True)
+
+    # Relationship: many comments → one post
+    # If the post is deleted, delete all its comments as well
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments')
+
+    def __str__(self):
+        return f"{self.user_name} - {self.post.title}"
