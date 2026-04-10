@@ -40,10 +40,11 @@
 
 <section id="post-content">
     {{ post.content|linebreaks }}
-
+ <!--you have to create a forms.py file .-->
     <div>
         <form>
-            
+            {{ comment_form}}
+            <button type="submit">Submit Comment</button>
         </form>
     </div>
 </section>

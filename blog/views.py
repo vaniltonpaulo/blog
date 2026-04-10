@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, DetailView
+from .forms import CommentForm
 
 from .models import Post
 
@@ -43,6 +44,7 @@ class SinglePostView(DetailView):
         # Get all tags associated with this post
         post_tags = current_post.tags.all()
         context['post_tags'] = post_tags
+        context['comment_form'] = CommentForm() # Add an empty comment form to the context
 
         return context
 
