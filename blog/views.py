@@ -1,18 +1,23 @@
 from django.shortcuts import render, get_object_or_404
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView
 from .forms import CommentForm
+from django.views import View
+from django.http import HttpResponseRedirect
+from django.urls import reverse
+
 
 from .models import Post
+
 
 class StartingPageView(ListView):
     template_name = 'blog/index.html'
     model = Post
-    ordering = ['-date'] 
-    context_object_name = 'posts' 
+    ordering = ['-date']
+    context_object_name = 'posts'
 
     def get_queryset(self):
         queryset = super().get_queryset()
-        data = queryset[:3] 
+        data = queryset[:3]
         return data
 
 
@@ -25,26 +30,35 @@ def get_date(post):
 class AllPostsView(ListView):
     template_name = 'blog/all-posts.html'
     model = Post
-    ordering = ['-date'] 
+    ordering = ['-date']
     context_object_name = 'all_posts'
 
 
-class SinglePostView(DetailView):
-    template_name = 'blog/post-detail.html'
-    model = Post
-    context_object_name = 'post'
+class SinglePostView(View):
 
-    def get_context_data(self, **kwargs):
-        # Get the default context data from the parent class
-        context = super().get_context_data(**kwargs)
+    def get(self, request, slug):
+        post = Post.objects.get(slug=slug)
+        context = {
+            'post': post,
+            "post_tags": post.tags.all(),
+            'comment_form': CommentForm()
+        }
 
-        # Get the current post object (the one being viewed)
-        current_post = self.get_object()
+        return render(request, 'blog/post-detail.html', context)
 
-        # Get all tags associated with this post
-        post_tags = current_post.tags.all()
-        context['post_tags'] = post_tags
-        context['comment_form'] = CommentForm() # Add an empty comment form to the context
+    def post(self, request, slug):
+        comment_form = CommentForm(request.POST)
+        post = Post.objects.get(slug=slug)
 
-        return context
-
+        if comment_form.is_valid():
+            comment_form.save(commit=False)
+            comment.post = post
+            comment.save()
+            return HttpResponseRedirect(reverse("post-detail-page", args=[slug])) 
+         
+        context = {
+            'post': post,
+            "post_tags": post.tags.all(),
+            'comment_form': CommentForm()
+        }
+        return render(request, 'blog/post-detail.html',context)    
